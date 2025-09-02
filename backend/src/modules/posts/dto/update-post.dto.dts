@@ -1,0 +1,31 @@
+import { InputType, Field } from '@nestjs/graphql';
+import { IsEnum, IsString, IsOptional, IsObject } from 'class-validator';
+import { PostStatus, PostVisibility } from '../entities/post.entity';
+
+@InputType()
+export class UpdatePostDto {
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  content?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsObject()
+  @IsOptional()
+  media?: Record<string, any>;
+
+  @Field(() => String, { nullable: true })
+  @IsEnum(PostStatus)
+  @IsOptional()
+  status?: PostStatus;
+
+  @Field(() => String, { nullable: true })
+  @IsEnum(PostVisibility)
+  @IsOptional()
+  visibility?: PostVisibility;
+}
